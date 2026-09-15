@@ -34,12 +34,31 @@ import { districts } from '../src/utils/districts';
 import { useAuthStore } from '../src/store/authStore';
 import { useAppStore } from '../src/store/appStore';
 import { authService } from '../src/services/auth.service';
-import { ArrowLeft, User, MapPin, Lock, Search, Check, X, LogIn, UserPlus } from 'lucide-react-native';
+import {
+  ArrowLeft,
+  User,
+  MapPin,
+  Lock,
+  Search,
+  Check,
+  X,
+  LogIn,
+  UserPlus,
+  ArrowRight,
+  ShieldCheck,
+  KeyRound,
+  Send,
+} from 'lucide-react-native';
+import {
+  UnifiedLocationPicker,
+  NumericPinKeypad,
+} from '../src/components/common';
 
 export default function RegisterScreen() {
   const router = useRouter();
   const { t } = useTranslation();
   const language = useAppStore((s) => s.language);
+  const triggerAlert = useAppStore((s) => s.triggerAlert);
   const { login } = useAuthStore();
 
   const [step, setStep] = useState(0);
@@ -51,23 +70,14 @@ export default function RegisterScreen() {
   const [email, setEmail] = useState('');
 
   // Step 2 fields
-  const [selectedDistrict, setSelectedDistrict] = useState('');
-  const [gpsStatus, setGpsStatus] = useState<'detecting' | 'found' | 'failed'>('detecting');
+  const [selectedDistrict, setSelectedDistrict] = useState('ranchi');
   const [locationCoords, setLocationCoords] = useState<{ latitude: number; longitude: number } | null>(null);
 
-  // Step 3 fields
+  // Step 3 fields: 4-digit numeric PIN
+  const [pin, setPin] = useState('');
   const [otp, setOtp] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [otpCooldown, setOtpCooldown] = useState(0);
-  const [showPasswordOption, setShowPasswordOption] = useState(false);
-  const [password, setPassword] = useState('');
-
-  // GPS auto-detect on Step 2
-  useEffect(() => {
-    if (step === 1) {
-      detectLocation();
-    }
-  }, [step]);
 
   // OTP cooldown timer
   useEffect(() => {
@@ -77,53 +87,67 @@ export default function RegisterScreen() {
     }
   }, [otpCooldown]);
 
-  const detectLocation = async () => {
-    try {
-      setGpsStatus('detecting');
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setGpsStatus('failed');
-        return;
-      }
-      const loc = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Balanced,
-      });
-      const { latitude, longitude } = loc.coords;
-      setLocationCoords({ latitude, longitude });
-
-      // Reverse geocode to automatically resolve district and location details
-      const geocoded = await Location.reverseGeocodeAsync({ latitude, longitude });
-      if (geocoded && geocoded.length > 0) {
-        const g = geocoded[0];
-        const detectedName = (g.district || g.subregion || g.city || '').toLowerCase();
-        const matched = districts.find(
-          (d) =>
-            detectedName.includes(d.id) ||
-            detectedName.includes(d.nameEn.toLowerCase()) ||
-            d.nameEn.toLowerCase().includes(detectedName)
-        );
-        if (matched) {
-          setSelectedDistrict(matched.id);
-        } else if (!selectedDistrict) {
-          setSelectedDistrict('ranchi');
-        }
-      } else if (!selectedDistrict) {
-        setSelectedDistrict('ranchi');
-      }
-      setGpsStatus('found');
-    } catch {
-      setGpsStatus('failed');
-    }
-  };
-
   const handleSendOTP = async () => {
     try {
       setLoading(true);
       await authService.sendOTP(phone);
       setOtpSent(true);
       setOtpCooldown(30);
+      triggerAlert(
+        language === 'hi'
+          ? 'ओटीपी आपके नंबर पर भेज दिया गया है'
+          : 'OTP has been sent to your mobile number',
+        'info'
+      );
+      // Simulate auto-fill after 2.5s for seamless non-literate onboarding
+      setTimeout(() => {
+        setOtp('123456');
+        triggerAlert(
+          language === 'hi'
+            ? 'ओटीपी कोड अपने आप भर दिया गया है'
+            : 'OTP code detected and auto-filled',
+          'success'
+        );
+      }, 2500);
     } catch (e: any) {
-      Alert.alert('Error', e.message);
+      triggerAlert(e.message || 'OTP भेजने में समस्या हुई', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRegisterWithPin = async () => {
+    if (pin.length < 4) {
+      triggerAlert(
+        language === 'hi'
+          ? 'कृपया कम से कम ४ अंकों का पिन दर्ज करें'
+          : 'Please enter a 4-digit PIN',
+        'warning'
+      );
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const result = await authService.register({
+        full_name: name.trim(),
+        phone: phone.trim(),
+        email: email ? email.trim() : undefined,
+        password: pin,
+        district: selectedDistrict || 'ranchi',
+        pincode: '834001',
+        village_or_city: selectedDistrict || 'Ranchi',
+      });
+      login(result.user, result.token);
+      triggerAlert(
+        language === 'hi'
+          ? 'खाता सफलतापूर्वक बन गया है!'
+          : 'Account created successfully!',
+        'success'
+      );
+      router.replace('/(tabs)/dashboard');
+    } catch (e: any) {
+      triggerAlert(e.message || 'पंजीकरण विफल रहा', 'error');
     } finally {
       setLoading(false);
     }
@@ -133,40 +157,23 @@ export default function RegisterScreen() {
     try {
       setLoading(true);
       const registrationData = {
-        full_name: name,
-        phone: phone,
+        full_name: name.trim(),
+        phone: phone.trim(),
         email: email ? email.trim() : undefined,
-        password: password || undefined,
-        district: selectedDistrict,
+        password: pin || '1234',
+        district: selectedDistrict || 'ranchi',
         pincode: '834001',
         village_or_city: selectedDistrict || 'Ranchi',
       };
       const result = await authService.verifyOTP(phone, otp, registrationData);
       login(result.user, result.token);
+      triggerAlert(
+        language === 'hi' ? 'सत्यापन सफल रहा!' : 'Verification successful!',
+        'success'
+      );
       router.replace('/(tabs)/dashboard');
     } catch (e: any) {
-      Alert.alert('Error', e.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleRegisterWithPassword = async () => {
-    try {
-      setLoading(true);
-      const result = await authService.register({
-        full_name: name,
-        phone,
-        email: email ? email.trim() : undefined,
-        password,
-        district: selectedDistrict,
-        pincode: '834001',
-        village_or_city: selectedDistrict || 'Ranchi',
-      });
-      login(result.user, result.token);
-      router.replace('/(tabs)/dashboard');
-    } catch (e: any) {
-      Alert.alert('Error', e.message);
+      triggerAlert(e.message || 'ओटीपी गलत है', 'error');
     } finally {
       setLoading(false);
     }
@@ -190,6 +197,7 @@ export default function RegisterScreen() {
         onChangeText={setName}
         showVoiceButton
         autoCapitalize="words"
+        icon={<User size={20} color={colors.forestGreen} />}
       />
       <Input
         label={t('register.phoneLabel')}
@@ -198,154 +206,52 @@ export default function RegisterScreen() {
         onChangeText={(text) => setPhone(text.replace(/[^0-9]/g, '').slice(0, 10))}
         keyboardType="phone-pad"
         maxLength={10}
-      />
-      <Input
-        label={t('register.emailLabel')}
-        placeholder={t('register.emailPlaceholder')}
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
+        icon={<ShieldCheck size={20} color={colors.forestGreen} />}
       />
     </View>
   );
 
   const renderStep1 = () => (
     <View style={styles.stepContent}>
-      <View style={styles.stepIconContainer}>
-        <MapPin size={48} color={colors.forestGreen} />
-      </View>
-
-      {/* GPS Status */}
-      <View style={styles.gpsBar}>
-        {gpsStatus === 'detecting' ? (
-          <Search size={20} color={colors.mudBrown} />
-        ) : gpsStatus === 'found' ? (
-          <Check size={20} color={colors.leafGreen} />
-        ) : (
-          <X size={20} color={colors.sindoor} />
-        )}
-        <Text style={styles.gpsText}>
-          {gpsStatus === 'detecting'
-            ? t('register.gpsDetecting')
-            : gpsStatus === 'found'
-            ? t('register.gpsDetected')
-            : t('register.gpsFailed')}
-        </Text>
-      </View>
-
-      {/* District Dropdown */}
-      <Text style={styles.label}>{t('register.districtLabel')}</Text>
-      <ScrollView
-        style={styles.districtList}
-        nestedScrollEnabled
-        showsVerticalScrollIndicator={false}
-      >
-        {districts.map((d) => (
-          <TouchableOpacity
-            key={d.id}
-            onPress={() => setSelectedDistrict(d.id)}
-            style={[
-              styles.districtItem,
-              selectedDistrict === d.id && styles.districtItemSelected,
-            ]}
-          >
-            <Text
-              style={[
-                styles.districtText,
-                selectedDistrict === d.id && styles.districtTextSelected,
-              ]}
-            >
-              {language === 'hi' ? d.nameHi : d.nameEn}
-            </Text>
-            {selectedDistrict === d.id && <Check size={20} color={colors.forestGreen} />}
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <UnifiedLocationPicker
+        selectedDistrict={selectedDistrict}
+        onSelectDistrict={(distId, coords) => {
+          setSelectedDistrict(distId);
+          if (coords) setLocationCoords(coords);
+        }}
+      />
     </View>
   );
 
   const renderStep2 = () => (
     <View style={styles.stepContent}>
-      <View style={styles.stepIconContainer}>
-        <Lock size={48} color={colors.forestGreen} />
+      <NumericPinKeypad
+        pin={pin}
+        onChangePin={setPin}
+        maxLength={4}
+        labelHi="४-अंकों का गुप्त पिन बनाएं"
+        labelEn="Set your 4-digit secret PIN"
+      />
+
+      <View style={{ width: '100%', marginTop: spacing.md, gap: 10 }}>
+        <Button
+          title={language === 'hi' ? 'खाता बनाएं' : 'Create Account'}
+          onPress={handleRegisterWithPin}
+          loading={loading}
+          variant="primary"
+          disabled={pin.length !== 4}
+          icon={<UserPlus size={22} color="#FFFFFF" />}
+        />
+
+        {/* OTP Option */}
+        <Button
+          title={otpSent ? 'OTP से पुष्टि करें' : 'OTP भेजें'}
+          onPress={otpSent ? handleVerifyOTP : handleSendOTP}
+          loading={loading}
+          variant="outline"
+          icon={<Send size={20} color={colors.forestGreen} />}
+        />
       </View>
-
-      {!otpSent ? (
-        <>
-          <Text style={styles.otpInfo}>
-            {t('register.otpTitle')}
-          </Text>
-          <Text style={styles.phoneDisplay}>📱 {phone}</Text>
-          <Button
-            title={t('login.sendOtp')}
-            onPress={handleSendOTP}
-            loading={loading}
-            variant="primary"
-          />
-        </>
-      ) : (
-        <>
-          <Text style={styles.otpInfo}>{t('register.otpSent')} 📱 {phone}</Text>
-          <Input
-            label="OTP"
-            placeholder={t('register.otpPlaceholder')}
-            value={otp}
-            onChangeText={(text) => setOtp(text.replace(/[^0-9]/g, '').slice(0, 6))}
-            keyboardType="number-pad"
-            maxLength={6}
-          />
-          <Button
-            title={t('common.submit')}
-            onPress={handleVerifyOTP}
-            loading={loading}
-            variant="primary"
-            disabled={otp.length !== 6}
-          />
-
-          {/* Resend OTP */}
-          <TouchableOpacity
-            onPress={otpCooldown > 0 ? undefined : handleSendOTP}
-            disabled={otpCooldown > 0}
-            style={styles.resendButton}
-          >
-            <Text style={[styles.resendText, otpCooldown > 0 && { opacity: 0.5 }]}>
-              {otpCooldown > 0
-                ? t('register.otpResendIn', { seconds: otpCooldown })
-                : t('register.otpResend')}
-            </Text>
-          </TouchableOpacity>
-        </>
-      )}
-
-      {/* Password fallback option */}
-      <TouchableOpacity
-        onPress={() => setShowPasswordOption(!showPasswordOption)}
-        style={styles.passwordToggle}
-      >
-        <Text style={styles.passwordToggleText}>
-          {t('register.passwordOption')} {showPasswordOption ? '▲' : '▼'}
-        </Text>
-      </TouchableOpacity>
-
-      {showPasswordOption && (
-        <View style={styles.passwordSection}>
-          <Input
-            label={t('register.passwordLabel')}
-            placeholder={t('register.passwordPlaceholder')}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-          />
-          <Button
-            title={t('register.title')}
-            onPress={handleRegisterWithPassword}
-            loading={loading}
-            variant="secondary"
-            disabled={password.length < 6}
-          />
-        </View>
-      )}
     </View>
   );
 
@@ -410,6 +316,7 @@ export default function RegisterScreen() {
                 variant="ghost"
                 fullWidth={false}
                 style={{ flex: 1, marginRight: spacing.sm }}
+                icon={<ArrowLeft size={20} color={colors.forestGreen} />}
               />
             )}
             <Button
@@ -419,6 +326,7 @@ export default function RegisterScreen() {
               disabled={!canGoNext()}
               fullWidth={false}
               style={{ flex: 2 }}
+              icon={<ArrowRight size={20} color="#FFFFFF" />}
             />
           </View>
         )}

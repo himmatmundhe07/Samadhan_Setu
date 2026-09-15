@@ -189,6 +189,16 @@ export default function DashboardScreen() {
             <Text style={styles.emptySubtitle}>
               {t('dashboard.firstComplaint') || "अपनी पहली शिकायत यहाँ दर्ज करें"}
             </Text>
+            <TouchableOpacity
+              style={styles.emptyActionBtn}
+              onPress={() => router.push('/(tabs)/submit')}
+              activeOpacity={0.85}
+            >
+              <Plus color="#FFFFFF" size={20} strokeWidth={2.5} />
+              <Text style={styles.emptyActionBtnText}>
+                {language === 'hi' ? 'नई शिकायत दर्ज करें' : 'Report New Problem'}
+              </Text>
+            </TouchableOpacity>
           </View>
         ) : (
           myProblems.map((problem) => (
@@ -324,6 +334,21 @@ const styles = StyleSheet.create({
     fontSize: fontSize.sm,
     color: colors.mudBrown,
     textAlign: 'center',
+  },
+  emptyActionBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    backgroundColor: colors.forestGreen,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: borderRadius.full,
+    marginTop: spacing.md,
+  },
+  emptyActionBtnText: {
+    color: '#FFFFFF',
+    fontSize: fontSize.base,
+    fontWeight: '700',
   },
   bottomIllustrationWrapper: {
     alignItems: 'center',

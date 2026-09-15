@@ -45,17 +45,21 @@ import {
   LogIn,
 } from 'lucide-react-native';
 
+import { useAppStore } from '../src/store/appStore';
+import { NumericPinKeypad } from '../src/components/common';
+
 export default function LoginScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ registeredPhone?: string; registeredEmail?: string; justRegistered?: string }>();
   const { t, i18n } = useTranslation();
   const { login } = useAuthStore();
+  const triggerAlert = useAppStore((s) => s.triggerAlert);
+  const language = useAppStore((s) => s.language);
 
   const isHindi = i18n.language === 'hi';
 
   const [phoneOrEmail, setPhoneOrEmail] = useState(params.registeredPhone || params.registeredEmail || '');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [pin, setPin] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
   const [justRegisteredMsg, setJustRegisteredMsg] = useState(params.justRegistered === 'true');
 
@@ -82,7 +86,10 @@ export default function LoginScreen() {
   const handleSendOTP = async () => {
     const cleanPhone = phoneOrEmail.replace(/[^0-9]/g, '');
     if (cleanPhone.length !== 10) {
-      Alert.alert('Error', isHindi ? 'कृपया 10 अंकों का मोबाइल नंबर दर्ज करें' : 'Please enter a valid 10-digit phone number');
+      triggerAlert(
+        isHindi ? 'कृपया 10 अंकों का मोबाइल नंबर दर्ज करें' : 'Please enter a valid 10-digit phone number',
+        'warning'
+      );
       return;
     }
     try {
@@ -90,8 +97,20 @@ export default function LoginScreen() {
       await authService.sendOTP(cleanPhone);
       setOtpSent(true);
       setOtpCooldown(30);
+      triggerAlert(
+        isHindi ? 'ओटीपी आपके फोन पर भेज दिया गया है' : 'OTP has been sent to your phone',
+        'info'
+      );
+      // Auto-fill simulation after 2.5s
+      setTimeout(() => {
+        setOtp('123456');
+        triggerAlert(
+          isHindi ? 'ओटीपी कोड अपने आप भर गया है' : 'OTP detected and auto-filled',
+          'success'
+        );
+      }, 2500);
     } catch (e: any) {
-      Alert.alert('Error', e.message);
+      triggerAlert(e.message || 'OTP भेजने में त्रुटि हुई', 'error');
     } finally {
       setLoading(false);
     }
@@ -103,30 +122,38 @@ export default function LoginScreen() {
       setLoading(true);
       const result = await authService.verifyOTP(cleanPhone, otp);
       login(result.user, result.token);
+      triggerAlert(isHindi ? 'लॉगिन सफल रहा!' : 'Login successful!', 'success');
       router.replace('/(tabs)/dashboard');
     } catch (e: any) {
-      Alert.alert('Error', e.message);
+      triggerAlert(e.message || 'ओटीपी अमान्य है', 'error');
     } finally {
       setLoading(false);
     }
   };
 
-  const handlePasswordLogin = async () => {
+  const handlePinLogin = async (pinToUse: string = pin) => {
     if (!phoneOrEmail) {
-      Alert.alert('Error', isHindi ? 'कृपया मोबाइल या ईमेल दर्ज करें' : 'Please enter Mobile Number or Email');
+      triggerAlert(
+        isHindi ? 'कृपया मोबाइल नंबर दर्ज करें' : 'Please enter your phone number',
+        'warning'
+      );
       return;
     }
-    if (!password || password.length < 4) {
-      Alert.alert('Error', isHindi ? 'कृपया मान्य पासवर्ड दर्ज करें' : 'Please enter a valid password');
+    if (!pinToUse || pinToUse.length < 4) {
+      triggerAlert(
+        isHindi ? 'कृपया अपना ४ अंकों का गुप्त पिन दर्ज करें' : 'Please enter your 4-digit PIN',
+        'warning'
+      );
       return;
     }
     try {
       setLoading(true);
-      const result = await authService.loginWithPassword(phoneOrEmail, password);
+      const result = await authService.loginWithPassword(phoneOrEmail, pinToUse);
       login(result.user, result.token);
+      triggerAlert(isHindi ? 'लॉगिन सफल रहा!' : 'Login successful!', 'success');
       router.replace('/(tabs)/dashboard');
     } catch (e: any) {
-      Alert.alert('लॉगिन त्रुटि', e.message || 'गलत मोबाइल/ईमेल या पासवर्ड');
+      triggerAlert(e.message || 'गलत मोबाइल नंबर या पिन', 'error');
     } finally {
       setLoading(false);
     }
@@ -217,31 +244,18 @@ export default function LoginScreen() {
             />
 
             {!useOtp ? (
-              /* Password Field */
-              <View style={styles.passwordWrapper}>
-                <Input
-                  placeholder={isHindi ? 'पासवर्ड' : 'Password'}
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry={!showPassword}
-                  icon={<Lock size={20} color="#7A6855" />}
-                  containerStyle={styles.inputContainer}
-                />
-                <TouchableOpacity
-                  style={styles.eyeBtn}
-                  onPress={() => setShowPassword(!showPassword)}
-                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                >
-                  {showPassword ? (
-                    <EyeOff size={20} color="#7A6855" />
-                  ) : (
-                    <Eye size={20} color="#7A6855" />
-                  )}
-                </TouchableOpacity>
-              </View>
+              /* PIN Keypad Field with Spoken Digits */
+              <NumericPinKeypad
+                pin={pin}
+                onChangePin={setPin}
+                maxLength={4}
+                labelHi="४-अंकों का गुप्त पिन दर्ज करें"
+                labelEn="Enter your 4-digit secret PIN"
+                onComplete={(completedPin) => handlePinLogin(completedPin)}
+              />
             ) : (
               /* OTP Field */
-              <View>
+              <View style={{ width: '100%', marginVertical: 12 }}>
                 {!otpSent ? (
                   <TouchableOpacity
                     style={styles.sendOtpBtn}
@@ -258,23 +272,23 @@ export default function LoginScreen() {
                     <View style={styles.otpSentBadge}>
                       <Check size={16} color={colors.leafGreen} />
                       <Text style={styles.otpSentText}>
-                        {isHindi ? 'OTP भेजा गया' : 'OTP sent to mobile'}
+                        {isHindi ? 'OTP भेजा गया (अपने आप भर जाएगा)' : 'OTP sent to mobile (Auto-fills)'}
                       </Text>
                     </View>
-                    <Input
-                      placeholder="Enter 6-digit OTP"
-                      value={otp}
-                      onChangeText={(t) => setOtp(t.replace(/[^0-9]/g, '').slice(0, 6))}
-                      keyboardType="number-pad"
+                    <NumericPinKeypad
+                      pin={otp}
+                      onChangePin={setOtp}
                       maxLength={6}
-                      containerStyle={styles.inputContainer}
+                      labelHi="६-अंकों का OTP कोड दर्ज करें"
+                      labelEn="Enter 6-digit OTP code"
+                      onComplete={() => handleVerifyOTP()}
                     />
                   </View>
                 )}
               </View>
             )}
 
-            {/* Remember Me & Forgot Password Row */}
+            {/* Remember Me & Switch Mode Row */}
             <View style={styles.optionsRow}>
               <TouchableOpacity
                 style={styles.rememberMeRow}
@@ -298,8 +312,8 @@ export default function LoginScreen() {
               >
                 <Text style={styles.forgotText}>
                   {useOtp
-                    ? (isHindi ? 'पासवर्ड से लॉगिन करें' : 'Login with Password')
-                    : (isHindi ? 'पासवर्ड भूल गए?' : 'Forgot Password?')}
+                    ? (isHindi ? 'पिन से लॉगिन करें' : 'Login with PIN')
+                    : (isHindi ? 'OTP से लॉगिन करें' : 'Login with OTP')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -307,10 +321,11 @@ export default function LoginScreen() {
             {/* Primary Terracotta Login Button */}
             <TouchableOpacity
               style={styles.loginBtn}
-              onPress={useOtp && otpSent ? handleVerifyOTP : handlePasswordLogin}
+              onPress={useOtp && otpSent ? handleVerifyOTP : () => handlePinLogin()}
               activeOpacity={0.85}
               disabled={loading}
             >
+              <LogIn size={20} color="#FFFFFF" style={{ marginRight: 8 }} />
               <Text style={styles.loginBtnText}>
                 {loading
                   ? '...'

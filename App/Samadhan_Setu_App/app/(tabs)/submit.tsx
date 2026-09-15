@@ -31,7 +31,9 @@ import {
   CategoryGrid,
   VoiceGuideButton,
   VoiceRecorder,
+  PrePermissionModal,
 } from '../../src/components/common';
+import { playSpeech } from '../../src/services/voiceFeedback.service';
 import { colors } from '../../src/theme/colors';
 import { fontSize } from '../../src/theme/typography';
 import { spacing, screenPadding, borderRadius, touchTargets } from '../../src/theme/spacing';
@@ -44,7 +46,21 @@ import { ApiError, ApiErrorKind } from '../../src/services/apiError';
 import { showAlert, showConfirm } from '../../src/utils/alert';
 import { CategoryConfig, getCategoryById } from '../../src/utils/categories';
 import { getDistrictName, districts } from '../../src/utils/districts';
-import { Camera, Image as ImageIcon, Mic, RefreshCcw, Check, X, Search, ArrowLeft, Users, Home } from 'lucide-react-native';
+import {
+  Camera,
+  Image as ImageIcon,
+  Mic,
+  RefreshCcw,
+  Check,
+  X,
+  Search,
+  ArrowLeft,
+  ArrowRight,
+  RotateCcw,
+  FileText,
+  Users,
+  Home,
+} from 'lucide-react-native';
 import { Dimensions } from 'react-native';
 
 export type SubmitStep = 'photo' | 'location' | 'category' | 'voice' | 'confirm' | 'duplicate' | 'done';
@@ -66,17 +82,21 @@ export default function SubmitScreen() {
   const [gpsStatus, setGpsStatus] = useState<'detecting' | 'found' | 'failed'>('detecting');
   const [selectedCategory, setSelectedCategory] = useState<CategoryConfig | null>(null);
   const [description, setDescription] = useState('');
+  const [showTextInput, setShowTextInput] = useState(false);
   const [voiceUri, setVoiceUri] = useState<string | null>(null);
   const [voiceRecorded, setVoiceRecorded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [duplicates, setDuplicates] = useState<any[]>([]);
   const [queuedOffline, setQueuedOffline] = useState(false);
+  const [activePrePermission, setActivePrePermission] = useState<'camera' | 'location' | 'microphone' | null>(null);
+  const [pendingAction, setPendingAction] = useState<(() => void) | null>(null);
 
   const resetForm = () => {
     setStep('photo');
     setImageUri(null);
     setSelectedCategory(null);
     setDescription('');
+    setShowTextInput(false);
     setVoiceUri(null);
     setVoiceRecorded(false);
     setDuplicates([]);
@@ -89,8 +109,6 @@ export default function SubmitScreen() {
   stepRef.current = step;
 
   // Reset form when the screen is re-entered after a completed submission.
-  // The callback must not depend on `step`, otherwise it re-fires as soon as
-  // the submission sets step to 'done' and wipes the success screen.
   useFocusEffect(
     React.useCallback(() => {
       if (stepRef.current === 'done') {
@@ -105,6 +123,13 @@ export default function SubmitScreen() {
       detectLocation();
     }
   }, []);
+
+  // Auto-speak confirmation readback as soon as confirm step is entered
+  useEffect(() => {
+    if (step === 'confirm') {
+      speakConfirmation();
+    }
+  }, [step]);
 
   const detectLocation = async () => {
     try {
@@ -157,12 +182,19 @@ export default function SubmitScreen() {
   };
 
   const handleTakePhoto = async () => {
+    const { status } = await ImagePicker.getCameraPermissionsAsync();
+    if (status !== 'granted') {
+      setActivePrePermission('camera');
+      setPendingAction(() => executeTakePhoto);
+      return;
+    }
+    executeTakePhoto();
+  };
+
+  const executeTakePhoto = async () => {
     try {
       const { status } = await ImagePicker.requestCameraPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission needed', 'Camera permission is required');
-        return;
-      }
+      if (status !== 'granted') return;
       const result = await ImagePicker.launchCameraAsync({
         mediaTypes: ['images'],
         quality: 0.7, // Compress to save data
@@ -178,12 +210,19 @@ export default function SubmitScreen() {
   };
 
   const handleChoosePhoto = async () => {
+    const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      setActivePrePermission('camera');
+      setPendingAction(() => executeChoosePhoto);
+      return;
+    }
+    executeChoosePhoto();
+  };
+
+  const executeChoosePhoto = async () => {
     try {
       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission needed', 'Gallery permission is required');
-        return;
-      }
+      if (status !== 'granted') return;
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ['images'],
         quality: 0.7,
@@ -195,6 +234,15 @@ export default function SubmitScreen() {
       }
     } catch (e) {
       console.error('Gallery error:', e);
+    }
+  };
+
+  const handlePrePermissionProceed = () => {
+    setActivePrePermission(null);
+    if (pendingAction) {
+      const action = pendingAction;
+      setPendingAction(null);
+      action();
     }
   };
 
@@ -337,22 +385,17 @@ export default function SubmitScreen() {
     }
   };
 
-  // TTS read-back
+  // TTS read-back using centralized Bhashini multi-language synthesis
   const speakConfirmation = () => {
     const categoryName = selectedCategory
-      ? (language === 'en' ? selectedCategory.labelEn : selectedCategory.labelHi)
+      ? (language === 'hi' ? selectedCategory.labelHi : selectedCategory.labelEn)
       : '';
     const districtName = getDistrictName(locationDistrict, language);
     const message = t('submit.confirmMessage', {
       category: categoryName,
       location: districtName,
-    });
-    // sat/ho/mun → fall back to Hindi TTS (not supported by device engines)
-    const ttsLang = language === 'en' ? 'en-US' : 'hi-IN';
-    Speech.speak(message, {
-      language: ttsLang,
-      rate: 0.8,
-    });
+    }) || `आपने ${categoryName} की समस्या ${districtName} में दर्ज करने के लिए चुनी है। क्या आप इसे भेजना चाहते हैं?`;
+    playSpeech(message, language);
   };
 
   // ====== RENDER STEPS ======
@@ -434,12 +477,13 @@ export default function SubmitScreen() {
           title={t('submit.duplicateSupport')}
           onPress={handleDuplicateSupport}
           variant="primary"
-          icon={<Text style={{ fontSize: 20 }}>🤝</Text>}
+          icon={<Check size={20} color="#FFFFFF" />}
         />
         <Button
           title={t('submit.duplicateNew')}
           onPress={() => setStep('voice')}
           variant="outline"
+          icon={<ArrowRight size={20} color={colors.forestGreen} />}
         />
       </View>
     </View>
@@ -449,36 +493,54 @@ export default function SubmitScreen() {
     <View style={styles.stepContainer}>
       <Text style={styles.stepTitle}>{t('submit.voiceNote')}</Text>
 
-      {/* Real Audio Recorder (expo-av) */}
-      <VoiceRecorder
-        initialUri={voiceUri}
-        onRecordingComplete={(uri) => {
-          setVoiceUri(uri);
-          setVoiceRecorded(!!uri);
-        }}
-        onTranscript={(text) => {
-          if (text) {
-            setDescription((prev) => (prev ? `${prev}\n${text}` : text));
-          }
-        }}
-      />
+      {/* Primary Hero: VoiceRecorder */}
+      <View style={styles.heroVoiceCard}>
+        <VoiceRecorder
+          initialUri={voiceUri}
+          onRecordingComplete={(uri) => {
+            setVoiceUri(uri);
+            setVoiceRecorded(!!uri);
+          }}
+          onTranscript={(text) => {
+            if (text) {
+              setDescription((prev) => (prev ? `${prev}\n${text}` : text));
+            }
+          }}
+        />
+      </View>
 
-      {/* Optional text description */}
-      <Text style={styles.optionalLabel}>{t('submit.descriptionLabel')}</Text>
-      <TextInput
-        style={styles.descriptionInput}
-        placeholder={t('submit.descriptionPlaceholder')}
-        placeholderTextColor={colors.borderLight}
-        value={description}
-        onChangeText={setDescription}
-        multiline
-        numberOfLines={3}
-      />
+      {/* Deprioritized / Collapsed text description toggle */}
+      <TouchableOpacity
+        onPress={() => setShowTextInput(!showTextInput)}
+        style={styles.textInputToggleBtn}
+        activeOpacity={0.8}
+      >
+        <FileText size={18} color={colors.forestGreen} />
+        <Text style={styles.textInputToggleText}>
+          {showTextInput
+            ? (language === 'hi' ? 'लिखना छुपाएं • Hide typing' : 'Hide typing')
+            : (language === 'hi' ? 'लिखकर भी बताना चाहते हैं? (वैकल्पिक)' : 'Type instead (optional)')}
+        </Text>
+      </TouchableOpacity>
+
+      {showTextInput && (
+        <TextInput
+          style={styles.descriptionInput}
+          placeholder={t('submit.descriptionPlaceholder')}
+          placeholderTextColor={colors.borderLight}
+          value={description}
+          onChangeText={setDescription}
+          multiline
+          numberOfLines={3}
+        />
+      )}
 
       <Button
         title={t('common.next')}
         onPress={handleSkipToConfirm}
         variant="primary"
+        icon={<ArrowRight size={22} color="#FFFFFF" />}
+        style={{ marginTop: spacing.md }}
       />
     </View>
   );
@@ -509,9 +571,9 @@ export default function SubmitScreen() {
           </View>
         </View>
 
-        {/* TTS Read-back */}
+        {/* TTS Read-back Auto-plays and can be re-listened */}
         <TouchableOpacity onPress={speakConfirmation} style={styles.ttsButton}>
-          <Text style={styles.ttsText}>🔊 सुनो</Text>
+          <Text style={styles.ttsText}>🔊 दोबारा सुनें • Listen Again</Text>
         </TouchableOpacity>
 
         {selectedCategory?.isEmergency && (
@@ -529,13 +591,13 @@ export default function SubmitScreen() {
             onPress={handleConfirmSubmit}
             variant={selectedCategory?.isEmergency ? 'emergency' : 'primary'}
             loading={loading}
-            icon={<Text style={{ fontSize: 20 }}>✅</Text>}
+            icon={<Check size={22} color="#FFFFFF" />}
           />
           <Button
             title={t('submit.confirmNo')}
             onPress={() => setStep('category')}
             variant="outline"
-            icon={<Text style={{ fontSize: 20 }}>↩️</Text>}
+            icon={<RotateCcw size={22} color={colors.forestGreen} />}
           />
         </View>
       </View>
@@ -576,6 +638,16 @@ export default function SubmitScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <VoiceGuideButton text={t('submit.voiceGuide')} />
+
+      <PrePermissionModal
+        visible={!!activePrePermission}
+        type={activePrePermission || 'camera'}
+        onProceed={handlePrePermissionProceed}
+        onCancel={() => {
+          setActivePrePermission(null);
+          setPendingAction(null);
+        }}
+      />
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}
@@ -673,6 +745,39 @@ const styles = StyleSheet.create({
   },
   duplicateButtons: { gap: spacing.base },
   // Voice step
+  heroVoiceCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: borderRadius.xl,
+    padding: spacing.lg,
+    alignItems: 'center',
+    marginBottom: spacing.xl,
+    borderWidth: 2,
+    borderColor: 'rgba(45, 80, 22, 0.15)',
+    shadowColor: colors.charcoal,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  textInputToggleBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
+    backgroundColor: 'rgba(45, 80, 22, 0.06)',
+    borderRadius: borderRadius.full,
+    borderWidth: 1,
+    borderColor: 'rgba(45, 80, 22, 0.2)',
+    marginBottom: spacing.base,
+    alignSelf: 'center',
+  },
+  textInputToggleText: {
+    fontSize: fontSize.sm,
+    color: colors.forestGreen,
+    fontWeight: '600',
+  },
   voiceButton: {
     alignSelf: 'center', width: 120, height: 120, borderRadius: 60,
     backgroundColor: colors.forestGreen, justifyContent: 'center',

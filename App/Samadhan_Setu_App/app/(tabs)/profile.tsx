@@ -8,7 +8,7 @@ import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../src/utils/i18n';
-import { Button, Input, VoiceGuideButton, Card } from '../../src/components/common';
+import { Button, Input, VoiceGuideButton, Card, AudioLanguagePicker, AudioWalkthroughModal } from '../../src/components/common';
 import { colors } from '../../src/theme/colors';
 import { fontSize } from '../../src/theme/typography';
 import { spacing, screenPadding, borderRadius } from '../../src/theme/spacing';
@@ -28,6 +28,9 @@ import {
   LogIn,
   UserPlus,
   ShieldCheck,
+  HelpCircle,
+  Check,
+  X,
 } from 'lucide-react-native';
 
 export default function ProfileScreen() {
@@ -39,6 +42,7 @@ export default function ProfileScreen() {
   const isHindi = i18nInstance.language === 'hi';
   const [editing, setEditing] = useState(false);
   const [editName, setEditName] = useState(user?.full_name || '');
+  const [showWalkthrough, setShowWalkthrough] = useState(false);
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
@@ -78,6 +82,12 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <VoiceGuideButton text={t('profile.voiceGuide') || 'प्रोफाइल और खाता प्रबंधन'} />
+
+      {/* Audio Walkthrough Modal (re-playable anytime) */}
+      <AudioWalkthroughModal
+        visible={showWalkthrough}
+        onFinish={() => setShowWalkthrough(false)}
+      />
 
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={styles.titleContainer}>
@@ -144,8 +154,22 @@ export default function ProfileScreen() {
                   showVoiceButton
                 />
                 <View style={styles.editButtons}>
-                  <Button title={t('common.save')} onPress={handleSave} variant="primary" size="small" fullWidth={false} />
-                  <Button title={t('common.cancel')} onPress={() => setEditing(false)} variant="ghost" size="small" fullWidth={false} />
+                  <Button
+                    title={t('common.save')}
+                    onPress={handleSave}
+                    variant="primary"
+                    size="small"
+                    fullWidth={false}
+                    icon={<Check size={16} color="#FFFFFF" />}
+                  />
+                  <Button
+                    title={t('common.cancel')}
+                    onPress={() => setEditing(false)}
+                    variant="ghost"
+                    size="small"
+                    fullWidth={false}
+                    icon={<X size={16} color={colors.charcoal} />}
+                  />
                 </View>
               </View>
             ) : (
@@ -205,43 +229,42 @@ export default function ProfileScreen() {
           </Card>
         )}
 
-        {/* Language Selection */}
+        {/* 🦻 Audio Walkthrough / Help Guide */}
+        <TouchableOpacity
+          style={styles.helpCard}
+          onPress={() => setShowWalkthrough(true)}
+          activeOpacity={0.85}
+        >
+          <View style={styles.helpIconCircle}>
+            <HelpCircle size={28} color="#FFFFFF" />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.helpTitle}>
+              {isHindi ? 'ऐप गाइड सुनें (चित्र व आवाज़)' : 'Audio App Walkthrough'}
+            </Text>
+            <Text style={styles.helpSubtitle}>
+              {isHindi ? '4 आसान चरणों में ऐप को आवाज़ से समझें • दोबारा देखें' : 'Listen to 4-step audio walkthrough'}
+            </Text>
+          </View>
+        </TouchableOpacity>
+
+        {/* Language Selection - Audio First */}
         <Card style={styles.sectionCard}>
           <View style={styles.sectionTitleRow}>
             <Globe size={20} color={colors.mudBrown} />
             <Text style={styles.sectionTitle}>{t('profile.changeLanguage')}</Text>
           </View>
-          <View style={styles.langGrid}>
-            {[
-              { id: 'hi', label: 'हिंदी', sub: 'Hindi' },
-              { id: 'en', label: 'English', sub: 'English' },
-              { id: 'sat', label: 'ᱥᱟᱱᱛᱟᱲᱤ', sub: 'Santhali' },
-              { id: 'kht', label: 'खोरठा', sub: 'Khortha' },
-              { id: 'nag', label: 'नागपुरी', sub: 'Nagpuri' },
-              { id: 'bho', label: 'भोजपुरी', sub: 'Bhojpuri' },
-              { id: 'anp', label: 'अंगिका', sub: 'Angika' },
-              { id: 'mag', label: 'मगही', sub: 'Magahi' },
-              { id: 'mai', label: 'मैथिली', sub: 'Maithili' },
-              { id: 'kru', label: 'कुड़ुख़', sub: 'Kurukh' },
-              { id: 'or', label: 'ଓଡ଼ିଆ', sub: 'Odia' },
-              { id: 'bn', label: 'বাংলা', sub: 'Bengali' },
-            ].map((item) => (
-              <TouchableOpacity
-                key={item.id}
-                onPress={() => handleLanguageChange(item.id as Language)}
-                style={[styles.langButton, language === item.id && styles.langButtonActive]}
-                accessibilityRole="button"
-                accessibilityLabel={`${item.label} (${item.sub})`}
-              >
-                <Text style={[styles.langText, language === item.id && styles.langTextActive]}>
-                  {item.label}
-                </Text>
-                <Text style={[styles.langSubText, language === item.id && styles.langSubTextActive]}>
-                  {item.sub}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+          <Text style={styles.sectionSubtitle}>
+            {isHindi
+              ? 'अपनी भाषा सुनने व चुनने के लिए कार्ड पर दबाएँ'
+              : 'Tap any card to hear and select your native dialect'}
+          </Text>
+          <AudioLanguagePicker
+            isEmbedded={true}
+            onLanguageSelected={(lang) => {
+              handleLanguageChange(lang);
+            }}
+          />
         </Card>
 
         {/* Voice Guide Toggle */}
@@ -428,20 +451,45 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
 
-  sectionCard: { marginBottom: spacing.lg, paddingVertical: spacing.md },
-  sectionTitleRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.sm },
-  sectionTitle: { fontSize: fontSize.lg, color: colors.mudBrown, fontWeight: '600' },
-  langGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm },
-  langButton: {
-    paddingVertical: spacing.sm, paddingHorizontal: spacing.base,
-    borderRadius: borderRadius.md, borderWidth: 2, borderColor: colors.borderLight,
-    alignItems: 'center', minWidth: '47%', flexGrow: 1, marginBottom: spacing.xs,
+  helpCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#EBF4EC',
+    borderWidth: 2,
+    borderColor: colors.forestGreen,
+    borderRadius: 16,
+    padding: spacing.md,
+    marginBottom: spacing.lg,
+    gap: spacing.md,
   },
-  langButtonActive: { borderColor: colors.forestGreen, backgroundColor: `${colors.forestGreen}10` },
-  langText: { fontSize: fontSize.base, color: colors.mudBrown, fontWeight: '700' },
-  langTextActive: { color: colors.forestGreen },
-  langSubText: { fontSize: fontSize.xs, color: colors.mudBrown, opacity: 0.7, marginTop: 2 },
-  langSubTextActive: { color: colors.forestGreen, opacity: 0.9, fontWeight: '600' },
+  helpIconCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: colors.forestGreen,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  helpTitle: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: colors.forestGreen,
+  },
+  helpSubtitle: {
+    fontSize: 12,
+    color: '#3B5E3C',
+    fontWeight: '600',
+    marginTop: 2,
+  },
+  sectionCard: { marginBottom: spacing.lg, paddingVertical: spacing.md },
+  sectionTitleRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, marginBottom: spacing.xs },
+  sectionTitle: { fontSize: fontSize.lg, color: colors.mudBrown, fontWeight: '700' },
+  sectionSubtitle: {
+    fontSize: 13,
+    color: colors.mudBrown,
+    fontWeight: '500',
+    marginBottom: spacing.md,
+  },
   toggleRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   toggleLabel: { fontSize: fontSize.base, color: colors.mudBrown, fontWeight: '600' },
   toggleValue: { fontSize: fontSize.base, fontWeight: '600' },

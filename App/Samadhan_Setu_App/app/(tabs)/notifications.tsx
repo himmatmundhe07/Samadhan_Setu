@@ -16,7 +16,7 @@ import { useNotificationStore, Notification } from '../../src/store/notification
 import { notificationService } from '../../src/services/notification.service';
 import { useAppStore } from '../../src/store/appStore';
 import * as Speech from 'expo-speech';
-import { Bell, Volume2, AlertCircle } from 'lucide-react-native';
+import { Bell, Volume2, AlertCircle, CheckCheck, RotateCcw } from 'lucide-react-native';
 
 const typeEmojis: Record<string, string> = {
   problem_verified: '✅',
@@ -77,7 +77,9 @@ export default function NotificationsScreen() {
               onPress={markAllAsRead}
               accessibilityRole="button"
               accessibilityLabel={t('notifications.markAllRead')}
+              style={styles.markAllBtn}
             >
+              <CheckCheck size={16} color={colors.terracotta} style={{ marginRight: 4 }} />
               <Text style={styles.markAllText}>{t('notifications.markAllRead')}</Text>
             </TouchableOpacity>
           )}
@@ -93,6 +95,7 @@ export default function NotificationsScreen() {
               accessibilityRole="button"
               accessibilityLabel="पुनः प्रयास करें"
             >
+              <RotateCcw size={14} color="#FFFFFF" style={{ marginRight: 4 }} />
               <Text style={styles.retryText}>पुनः प्रयास करें</Text>
             </TouchableOpacity>
           </View>
@@ -145,7 +148,15 @@ const styles = StyleSheet.create({
   headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: spacing.lg },
   titleContainer: { flexDirection: 'row', alignItems: 'center' },
   title: { fontSize: fontSize['2xl'], color: colors.forestGreen, fontWeight: '700' },
-  markAllText: { fontSize: fontSize.base, color: colors.terracotta, fontWeight: '600' },
+  markAllBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    backgroundColor: `${colors.terracotta}10`,
+  },
+  markAllText: { fontSize: fontSize.sm, color: colors.terracotta, fontWeight: '700' },
   notifCard: { marginBottom: spacing.md },
   notifUnread: { borderLeftWidth: 4, borderLeftColor: colors.forestGreen, backgroundColor: `${colors.forestGreen}05` },
   notifRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
@@ -176,6 +187,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   retryButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: colors.sindoor,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs,

@@ -16,3 +16,10 @@ export { SohraiTreeIllustration } from './SohraiTreeIllustration';
 export { SohraiBellEmpty } from './SohraiBellEmpty';
 export { SamadhanHeader, SamadhanLogo, GoogleLogo } from './SamadhanHeader';
 export { VoiceRecorder } from './VoiceRecorder';
+export { AudioLanguagePicker } from './AudioLanguagePicker';
+export { AudioWalkthroughModal } from './AudioWalkthroughModal';
+export { UnifiedLocationPicker } from './UnifiedLocationPicker';
+export { NumericPinKeypad } from './NumericPinKeypad';
+export { PrePermissionModal } from './PrePermissionModal';
+export { DynamicVoiceAlert } from './DynamicVoiceAlert';
+

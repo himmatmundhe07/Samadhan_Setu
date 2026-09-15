@@ -11,21 +11,33 @@ import { ErrorBoundary } from '../src/components/common/ErrorBoundary';
 import { OfflineBanner } from '../src/components/common/OfflineBanner';
 import { colors } from '../src/theme/colors';
 import { useAuthStore } from '../src/store/authStore';
+import { useAppStore } from '../src/store/appStore';
 import { useConnectivity } from '../src/hooks/useConnectivity';
+import {
+  AudioLanguagePicker,
+  AudioWalkthroughModal,
+  DynamicVoiceAlert,
+} from '../src/components/common';
 import '../src/utils/i18n'; // Initialize i18n
 import '../global.css'; // NativeWind CSS
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
   const initAuth = useAuthStore((s) => s.initAuth);
+  const {
+    hasSelectedLanguage,
+    hasCompletedWalkthrough,
+    setHasCompletedWalkthrough,
+    initAppPreferences,
+  } = useAppStore();
 
   useConnectivity();
 
   useEffect(() => {
     const prepare = async () => {
       try {
-        // Restore JWT token from AsyncStorage before any screen loads
-        await initAuth();
+        // Restore session token and saved language/walkthrough preferences
+        await Promise.all([initAuth(), initAppPreferences()]);
       } finally {
         setIsReady(true);
       }
@@ -41,11 +53,32 @@ export default function RootLayout() {
     );
   }
 
+  // 1. Mandatory First-Launch Audio-First Language Picker
+  if (!hasSelectedLanguage) {
+    return (
+      <SafeAreaProvider>
+        <StatusBar style="dark" />
+        <DynamicVoiceAlert />
+        <AudioLanguagePicker />
+      </SafeAreaProvider>
+    );
+  }
+
   return (
     <SafeAreaProvider>
       <ErrorBoundary>
         <StatusBar style="dark" />
         <OfflineBanner />
+        <DynamicVoiceAlert />
+
+        {/* 2. Mandatory First-Launch Audio Walkthrough (Skippable) */}
+        {!hasCompletedWalkthrough && (
+          <AudioWalkthroughModal
+            visible={!hasCompletedWalkthrough}
+            onFinish={() => setHasCompletedWalkthrough(true)}
+          />
+        )}
+
         <Stack
           screenOptions={{
             headerShown: false,
