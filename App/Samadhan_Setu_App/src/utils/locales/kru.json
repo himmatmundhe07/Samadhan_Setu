@@ -1,0 +1,129 @@
+{
+  "common": {
+    "appName": "समाधान सेतु",
+    "tagline": "नीमहाय समस्या, एम्हय समाधान",
+    "loading": "लोड मनो आली...",
+    "retry": "फिन से कोशिश नना",
+    "cancel": "रद्द नना",
+    "save": "संभार'के तरा",
+    "delete": "हटाओ नना",
+    "edit": "बदलो नना",
+    "done": "मंज्जा केरा",
+    "yes": "हाँ",
+    "no": "मला",
+    "ok": "ठीक रही",
+    "back": "खोखा",
+    "next": "मुन्दे",
+    "submit": "तइ'आ",
+    "search": "बेड्डा",
+    "offline": "ऑफ़लाइन — पुरान डेटा एरओ",
+    "syncing": "तइ'ना कोशिश मनों आली...",
+    "saved": "संभार'के तरा केरा",
+    "sent": "तइ'आ केरा",
+    "error": "एका त्रुटि मंज्जा",
+    "errorReassuring": "अम्के डरा, नीमहाय डेटा संभार'के रही।"
+  },
+  "home": {
+    "headline": "नीमहाय समस्या, एम्हय समाधान",
+    "totalComplaints": "अकुन गुने रिपोर्ट",
+    "totalResolved": "समाधान मंज्जा",
+    "startReport": "रिपोर्ट दर्ज नना",
+    "login": "लॉगिन नना",
+    "voiceGuide": "जोहार! ई समाधान सेतु तली। नीम तमहाय समस्या इयाती दर्ज नना सकओ।"
+  },
+  "register": {
+    "title": "खाता कम'आ",
+    "nameLabel": "नीमहाय नाम",
+    "namePlaceholder": "अपन पूरा नाम टुड़ा",
+    "phoneLabel": "मोबाइल नंबर",
+    "phonePlaceholder": "१० अंक गही मोबाइल नंबर",
+    "emailLabel": "ईमेल (ज़रूरी मला)",
+    "districtLabel": "ज़िला छाँटा",
+    "passwordLabel": "पासवर्ड",
+    "passwordPlaceholder": "कम से कम ६ अच्छर",
+    "alreadyRegistered": "पहिलती खाता रई? लॉगिन नना",
+    "voiceGuide": "खाता कमआगे नाम अरा मोबाइल नंबर टुड़ा।"
+  },
+  "login": {
+    "title": "लॉगिन नना",
+    "emailOrPhone": "ईमेल मला मोबाइल",
+    "password": "पासवर्ड",
+    "loginButton": "लॉगिन",
+    "noAccount": "खाता मला रई? रजिस्टर नना",
+    "guestContinue": "मेहमान रूपे मुन्दे काला",
+    "voiceGuide": "खाता नु लॉगिन मनोआगे मोबाइल नंबर टुड़ा अरा OTP मँगवाओ।"
+  },
+  "submit": {
+    "title": "पुन्ना रिपोर्ट दर्ज नना",
+    "takePhoto": "फोटो ओत्ता",
+    "choosePhoto": "गैलरी ती छाँटा",
+    "chooseCategory": "श्रेणी छाँटा",
+    "descriptionLabel": "समस्या गही बिबरन",
+    "descriptionPlaceholder": "समस्या गही बारे नु बिस्तार ती टुड़ा...",
+    "recordVoice": "साड़ा नु रिकॉर्ड नना",
+    "confirmTitle": "पुष्टि नना",
+    "submitButton": "रिपोर्ट तइ'आ",
+    "successTitle": "रिपोर्ट दर्ज मंज्जा केरा",
+    "voiceGuide": "समस्या दर्ज ननागे फोटो ओत्ता, श्रेणी छाँटा अरा तइ'आ।"
+  },
+  "dashboard": {
+    "title": "डैशबोर्ड",
+    "stats": "आँकड़ा",
+    "myComplaints": "एम्हय रिपोर्ट",
+    "voiceGuide": "ई नीमहाय डैशबोर्ड तली। इया नीमहाय उज्जो रिपोर्ट एरा। पुन्ना रिपोर्ट लागे लतार नु प्लस बटन ओत्ता।"
+  },
+  "problemDetail": {
+    "timeline": "हालत",
+    "responsibleEntity": "नीमहाय इलाका गही टीम काम ननों आली",
+    "supportCount": "{{count}} जनार ई रिपोर्ट गही समर्थन नंज्कर",
+    "voiceGuide": "ई नीमहाय रिपोर्ट गही हालत तली। मेया एरा जे काम एकाती मंज्जा।"
+  },
+  "problems": {
+    "title": "उज्जो रिपोर्ट",
+    "filterByCategory": "श्रेणी ती छाँटा",
+    "filterByDistrict": "ज़िला ती छाँटा",
+    "reportedBy": "नागरिक दर्ज नंज्कर",
+    "supportCount": "{{count}} जनार समर्थन नंज्कर",
+    "voiceGuide": "इया उज्जो रिपोर्ट एरओ। नीम श्रेणी मला जिला ती छाँटा सकओ।"
+  },
+  "analytics": {
+    "title": "आँकड़ा",
+    "thisMonth": "ई चान्दो नु",
+    "totalReports": "रिपोर्ट बरचा",
+    "totalResolved": "समाधान मंज्जा",
+    "byCategory": "श्रेणी गही हिसाब ती",
+    "selectDistrict": "ज़िला छाँटा",
+    "noData": "अकुन ढेर डेटा मला रई",
+    "voiceGuide": "इया नीमहाय जिला गही पूरा आँकड़ा एरओ। ई चान्दो कतेक रिपोर्ट बरचा अरा हल मंज्जा।"
+  },
+  "notifications": {
+    "title": "खबर",
+    "empty": "अकुन एका पुन्ना खबर मला रई",
+    "markAllRead": "उज्जो पढ़ल मान'आ",
+    "voiceGuide": "इया नीमहाय खबर एरओ। मेनआगे स्पीकर बटन ओत्ता।"
+  },
+  "profile": {
+    "title": "एम्हय प्रोफ़ाइल",
+    "nameLabel": "नाम",
+    "phoneLabel": "मोबाइल",
+    "locationLabel": "जगहा",
+    "changeLanguage": "भाषा बदलो नना",
+    "logout": "लॉगआउट",
+    "referral": "अपन पद्दा नु तेंगा",
+    "voiceGuide": "ई नीमहाय प्रोफ़ाइल तली। इयाती भाषा अरा जानकारी बदलो नना सकओ।"
+  },
+  "languages": {
+    "hindi": "हिंदी",
+    "english": "English",
+    "santhali": "ᱥᱟᱱᱛᱟᱲᱤ (Santhali)",
+    "khortha": "खोरठा (Khortha)",
+    "nagpuri": "नागपुरी (Nagpuri)",
+    "bhojpuri": "भोजपुरी (Bhojpuri)",
+    "angika": "अंगिका (Angika)",
+    "magahi": "मगही (Magahi)",
+    "maithili": "मैथिली (Maithili)",
+    "odia": "ଓଡ଼ିଆ (Odia)",
+    "bengali": "বাংলা (Bengali)",
+    "kurukh": "कुड़ुख़ (Kurukh)"
+  }
+}

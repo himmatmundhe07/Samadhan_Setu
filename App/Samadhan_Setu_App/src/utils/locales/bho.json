@@ -1,0 +1,124 @@
+{
+  "common": {
+    "appName": "समाधान सेतु",
+    "tagline": "रउआ सब के समस्या, हमनी के समाधान",
+    "loading": "लोड हो रहल बा...",
+    "retry": "फेरु से कोसिस करीं",
+    "cancel": "रद्द करीं",
+    "save": "सहेजीं",
+    "delete": "हटाईं",
+    "edit": "बदलीं",
+    "done": "हो गइल",
+    "yes": "हाँ",
+    "no": "ना",
+    "ok": "ठीक बा",
+    "back": "पाछे",
+    "next": "आगे",
+    "submit": "भेजीं",
+    "search": "खोजीं",
+    "offline": "ऑफ़लाइन — पुरान डेटा देखात बा",
+    "syncing": "भेजे के कोसिस चालू बा...",
+    "saved": "सहेज लिहल गइल",
+    "sent": "भेज दिहल गइल",
+    "error": "कवनो गड़बड़ी भइल बा",
+    "errorReassuring": "चिंता मत करीं, रउआ डेटा सुरक्षित बा।"
+  },
+  "home": {
+    "headline": "रउआ सब के समस्या, हमनी के समाधान",
+    "totalComplaints": "अब तक के सिकायत",
+    "totalResolved": "समाधान भइल",
+    "startReport": "सिकायत दर्ज करीं",
+    "login": "लॉगिन करीं",
+    "voiceGuide": "ई समाधान सेतु ह। रउआ आपन समस्या इहाँ से दर्ज करा सकीं।"
+  },
+  "register": {
+    "title": "खाता बनाईं",
+    "nameLabel": "रउआ नाम",
+    "namePlaceholder": "आपन पूरा नाम लिखीं",
+    "phoneLabel": "मोबाइल नंबर",
+    "phonePlaceholder": "१० अंक के मोबाइल नंबर",
+    "emailLabel": "ईमेल (ज़रूरी नइखे)",
+    "districtLabel": "जिला चुनीं",
+    "passwordLabel": "पासवर्ड",
+    "passwordPlaceholder": "कम से कम ६ अक्षर",
+    "alreadyRegistered": "पहिले से खाता बा? लॉगिन करीं",
+    "voiceGuide": "नया खाता बनावे खातिर आपन नाम आ मोबाइल नंबर दर्ज करीं।"
+  },
+  "login": {
+    "title": "लॉगिन करीं",
+    "emailOrPhone": "ईमेल चाहे मोबाइल",
+    "password": "पासवर्ड",
+    "loginButton": "लॉगिन",
+    "noAccount": "खाता नइखे? रजिस्टर करीं",
+    "guestContinue": "अतिथि के रूप में आगे बढ़ीं",
+    "voiceGuide": "आपन खाता में लॉगिन करे खातिर जानकारी भरीं।"
+  },
+  "submit": {
+    "title": "नया सिकायत दर्ज करीं",
+    "takePhoto": "फोटो खींचीं",
+    "choosePhoto": "गैलरी से चुनीं",
+    "chooseCategory": "श्रेणी चुनीं",
+    "descriptionLabel": "समस्या के बिबरन",
+    "descriptionPlaceholder": "समस्या के बारे में बिस्तार से लिखीं...",
+    "recordVoice": "आवाज में रिकॉर्ड करीं",
+    "confirmTitle": "पुष्टि करीं",
+    "submitButton": "सिकायत भेजीं",
+    "successTitle": "सिकायत कामयाबी से दर्ज हो गइल बा",
+    "voiceGuide": "समस्या के फोटो खींचीं, श्रेणी चुनीं आ दर्ज करीं।"
+  },
+  "dashboard": {
+    "title": "डैशबोर्ड",
+    "stats": "आँकड़ा",
+    "myComplaints": "हमार सिकायत",
+    "voiceGuide": "इहाँ आपन कुल सिकायत आ ओकर स्थिति देखीं।"
+  },
+  "problemDetail": {
+    "timeline": "स्थिति",
+    "responsibleEntity": "रउआ इलाका के टीम काम कर रहल बा",
+    "supportCount": "{{count}} लोग ई सिकायत के समर्थन कइले बा",
+    "voiceGuide": "ई रउआ सिकायत के स्थिति ह। ऊपर देखीं कि काम कहाँ तक पहुँचल बा।"
+  },
+  "problems": {
+    "title": "सभ सिकायत",
+    "filterByCategory": "श्रेणी से छाँटीं",
+    "filterByDistrict": "जिला से छाँटीं",
+    "reportedBy": "कवनो नागरिक दर्ज कइले बाड़न",
+    "supportCount": "{{count}} लोग ई सिकायत के समर्थन कइले बा",
+    "voiceGuide": "इहाँ सभे सिकायत देखात बा। रउआ श्रेणी चाहे जिला से छाँट सकीं।"
+  },
+  "analytics": {
+    "title": "आँकड़ा",
+    "thisMonth": "एह महीना में",
+    "totalReports": "सिकायत आइल",
+    "totalResolved": "समाधान भइल",
+    "byCategory": "श्रेणी के हिसाब से",
+    "selectDistrict": "जिला चुनीं",
+    "noData": "अबहिन जादे डेटा नइखे",
+    "voiceGuide": "इहाँ रउआ जिला के आँकड़ा देखात बा। एह महीना कतना सिकायत आइल आ कतना हल भइल।"
+  },
+  "notifications": {
+    "title": "सूचना",
+    "empty": "अबहिन कवनो नया सूचना नइखे",
+    "markAllRead": "सभ पढ़ल मान लीं",
+    "voiceGuide": "इहाँ रउआ सब सूचना देखात बा। सुने खातिर स्पीकर बटन दबाईं।"
+  },
+  "profile": {
+    "title": "हमार प्रोफ़ाइल",
+    "nameLabel": "नाम",
+    "phoneLabel": "मोबाइल",
+    "locationLabel": "जगह",
+    "changeLanguage": "भाषा बदलीं",
+    "logout": "लॉगआउट",
+    "referral": "आपन गाँव में बताईं",
+    "voiceGuide": "ई रउआ प्रोफ़ाइल ह। इहाँ से भाषा आ जानकारी बदल सकत बानी।"
+  },
+  "languages": {
+    "hindi": "हिंदी",
+    "english": "English",
+    "santhali": "ᱥᱟᱱᱛᱟᱲᱤ (Santhali)",
+    "angika": "अंगिका (Angika)",
+    "bhojpuri": "भोजपुरी (Bhojpuri)",
+    "odia": "ଓଡ଼ିଆ (Odia)",
+    "bengali": "বাংলা (Bengali)"
+  }
+}

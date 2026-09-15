@@ -1,0 +1,152 @@
+{
+  "common": {
+    "appName": "ᱥᱟᱢᱟᱫᱷᱟᱱ ᱥᱮᱛᱩ (Samadhan Setu)",
+    "tagline": "ᱟᱢᱟᱜ ᱮᱴᱠᱮᱴᱚᱬᱮ, ᱟᱞᱮᱭᱟᱜ ᱥᱟᱢᱟᱫᱷᱟᱱ",
+    "loading": "ᱞᱳᱰᱚᱜ ᱠᱟᱱᱟ...",
+    "retry": "ᱫᱚᱲᱦᱟ ᱪᱮᱥᱴᱟᱭ ᱢᱮ",
+    "cancel": "ᱵᱟᱹᱜᱤᱭᱟᱜ ᱢᱮ",
+    "save": "ᱥᱟᱸᱪᱟᱣ ᱢᱮ",
+    "delete": "ᱜᱮᱫ ᱜᱤᱰᱤᱭ ᱢᱮ",
+    "edit": "ᱵᱚᱫᱚᱞ ᱢᱮ",
+    "done": "ᱦᱩᱭ ᱮᱱᱟ",
+    "yes": "ᱦᱮᱸ",
+    "no": "ᱵᱟᱝ",
+    "ok": "ᱴᱷᱤᱠ ᱜᱮᱭᱟ",
+    "back": "ᱨᱩᱣᱟᱹᱲ",
+    "next": "ᱞᱟᱦᱟ",
+    "submit": "ᱠᱩᱞ ᱢᱮ",
+    "search": "ᱥᱮᱸᱫᱽᱨᱟᱭ ᱢᱮ",
+    "offline": "ᱚᱯᱷᱞᱟᱭᱤᱱ — ᱢᱟᱨᱮ ᱰᱟᱴᱟ ᱧᱮᱞᱚᱜ ᱠᱟᱱᱟ",
+    "syncing": "ᱠᱩᱞᱚᱜ ᱠᱟᱱᱟ...",
+    "saved": "ᱥᱟᱸᱪᱟᱣ ᱮᱱᱟ",
+    "sent": "ᱠᱩᱞ ᱮᱱᱟ",
+    "error": "ᱟᱹᱰᱤ ᱵᱟᱹᱲᱤᱡ ᱦᱩᱭ ᱮᱱᱟ",
+    "errorReassuring": "ᱟᱞᱚᱢ ᱪᱤᱱᱛᱟᱹᱭᱟ, ᱟᱢᱟᱜ ᱰᱟᱴᱟ ᱨᱩᱠᱷᱤᱭᱟᱹ ᱜᱮᱭᱟ।"
+  },
+  "home": {
+    "headline": "ᱟᱢᱟᱜ ᱮᱴᱠᱮᱴᱚᱬᱮ, ᱟᱞᱮᱭᱟᱜ ᱥᱟᱢᱟᱫᱷᱟᱱ",
+    "totalComplaints": "ᱱᱤᱛ ᱫᱷᱟᱹᱵᱤᱡ ᱨᱤᱯᱳᱨᱴ",
+    "totalResolved": "ᱥᱚᱞᱦᱮ ᱮᱱᱟ",
+    "startReport": "ᱨᱤᱯᱳᱨᱴ ᱢᱮ",
+    "login": "ᱞᱚᱜᱤᱱ ᱢᱮ",
+    "voiceGuide": "जोहार! नोआ दो समाधान सेतु काना। आमाग् एटकैटोणे रिपोर्ट लागिद् लातार रेनाग् बटन ओताय मे।"
+  },
+  "register": {
+    "title": "ᱠᱷᱟᱛᱟ ᱵᱮᱱᱟᱣ ᱢᱮ",
+    "nameLabel": "ᱟᱢᱟᱜ ᱧᱩᱛᱩᱢ",
+    "namePlaceholder": "ᱯᱩᱨᱟᱹ ᱧᱩᱛᱩᱢ ᱚᱞ ᱢᱮ",
+    "phoneLabel": "ᱢᱳᱵᱟᱭᱤᱞ ᱱᱚᱢᱵᱚᱨ",
+    "phonePlaceholder": "᱑᱐ ᱴᱟᱝ ᱱᱚᱢᱵᱚᱨ",
+    "emailLabel": "ᱤᱢᱮᱞ",
+    "emailPlaceholder": "ᱤᱢᱮᱞ (ᱵᱟᱝ ᱡᱟᱹᱨᱩᱲᱟ)",
+    "locationLabel": "ᱟᱢᱟᱜ ᱴᱷᱟᱶ",
+    "districtLabel": "ᱡᱤᱞᱟᱹ ᱪᱤ standard ᱢᱮ",
+    "gpsDetecting": "ᱴᱷᱟᱶ ᱧᱟᱢᱚᱜ ᱠᱟᱱᱟ...",
+    "gpsDetected": "ᱴᱷᱟᱶ ᱧᱟᱢ ᱮᱱᱟ",
+    "gpsFailed": "ᱴᱷᱟᱶ ᱵᱟᱝ ᱧᱟᱢ ᱞᱮᱱᱟ",
+    "otpTitle": "OTP ᱛᱮ ᱯᱩᱥᱴᱟᱹᱣ ᱢᱮ",
+    "otpSent": "OTP ᱠᱩᱞ ᱮᱱᱟ",
+    "otpPlaceholder": "᱖ ᱴᱟᱝ OTP ᱚᱞ ᱢᱮ",
+    "alreadyRegistered": "ᱠᱷᱟᱛᱟ ᱢᱮᱱᱟᱜᱼᱟ? ᱞᱚᱜᱤᱱ ᱢᱮ",
+    "voiceGuide": "खाता बेनाव लागिद् ञुतुम आर मोबाइल नंबर ओल मे।"
+  },
+  "login": {
+    "title": "ᱞᱚᱜᱤᱱ ᱢᱮ",
+    "phoneLabel": "ᱢᱳᱵᱟᱭᱤᱞ ᱱᱚᱢᱵᱚᱨ",
+    "phonePlaceholder": "ᱢᱳᱵᱟᱭᱤᱞ ᱱᱚᱢᱵᱚᱨ ᱚᱞ ᱢᱮ",
+    "sendOtp": "OTP ᱠᱩᱞ ᱢᱮ",
+    "passwordLabel": "ᱯᱟᱥᱣᱟᱨᱰ",
+    "loginButton": "ᱞᱚᱜᱤᱱ ᱢᱮ",
+    "noAccount": "ᱱᱟᱶᱟ ᱠᱷᱟᱛᱟ ᱵᱮᱱᱟᱣ ᱢᱮ",
+    "voiceGuide": "लॉगिन लागिद् मोबाइल नंबर ओल मे आर OTP कुल मे।"
+  },
+  "dashboard": {
+    "greeting": "ᱡᱚᱦᱟᱨ, {{name}}",
+    "totalReports": "ᱡᱚᱛᱚ ᱨᱤᱯᱳᱨᱴ",
+    "inProgress": "ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟ",
+    "resolved": "ᱥᱚᱞᱦᱮ ᱮᱱᱟ",
+    "myComplaints": "ᱤᱧᱟᱜ ᱨᱤᱯᱳᱨᱴ",
+    "noComplaints": "ᱱᱤᱛ ᱫᱷᱟᱹᱵᱤᱡ ᱪᱮᱫ ᱨᱤᱯᱳᱨᱴ ᱦᱚᱸ ᱵᱟᱹᱱᱩᱜᱼᱟ",
+    "newReport": "ᱱᱟᱶᱟ ᱨᱤᱯᱳᱨᱴ",
+    "voiceGuide": "नोआ दो आमाग् डैशबोर्ड काना। नाँवा रिपोर्ट लागिद् लातार रेनाग् प्लस बटन ओताय मे।"
+  },
+  "submit": {
+    "title": "ᱨᱤᱯᱳᱨᱴ ᱢᱮ",
+    "takePhoto": "ᱯᱷᱳᱴᱳ ᱛᱩᱞᱟᱹᱣ ᱢᱮ",
+    "choosePhoto": "ᱜᱮᱞᱟᱨᱤ ᱠᱷᱚᱱ ᱪᱤ standard ᱢᱮ",
+    "categoryTitle": "ᱮᱴᱠᱮᱴᱚᱬᱮ ᱨᱮᱱᱟᱜ ᱠᱤᱥᱤᱢ ᱪᱤ standard ᱢᱮ",
+    "voiceNote": "ᱨᱚᱲ ᱛᱮ ᱞᱟᱹᱭ ᱢᱮ",
+    "voiceRecording": "ᱨᱮᱠᱳᱨᱰᱚᱜ ᱠᱟᱱᱟ...",
+    "voiceRecorded": "ᱨᱮᱠᱳᱨᱰ ᱮᱱᱟ",
+    "descriptionLabel": "ᱟᱨᱦᱚᱸ ᱚᱞ ᱢᱮ",
+    "descriptionPlaceholder": "ᱱᱚᱸᱰᱮ ᱚᱞ ᱢᱮ...",
+    "confirmTitle": "ᱴᱷᱤᱠ ᱜᱮᱭᱟ?",
+    "confirmYes": "ᱦᱮᱸ, ᱠᱩᱞ ᱢᱮ",
+    "confirmNo": "ᱵᱟᱝ, ᱵᱚᱫᱚᱞ ᱢᱮ",
+    "submitted": "ᱨᱤᱯᱳᱨᱴ ᱠᱩᱞ ᱮᱱᱟ!",
+    "voiceGuide": "रिपोर्ट लागिद् फोटो तुलाउ मे आर किसिम बाछाव मे।"
+  },
+  "categories": {
+    "water": "ᱫᱟᱜ (Water)",
+    "road": "ᱦᱚᱨ (Road)",
+    "health": "ᱞᱟᱡ-ᱦᱚᱲᱢᱚ (Health)",
+    "environment": "ᱯᱚᱨᱤᱵᱮᱥ (Environment)",
+    "school": "ᱤᱛᱩᱱ ᱟᱥᱲᱟ (School)",
+    "electricity": "ᱵᱤᱡᱽᱞᱤ (Electricity)",
+    "toilet": "ᱯᱟᱭᱠᱷᱟᱱᱟ (Toilet)",
+    "other": "ᱮᱴᱟᱜᱟᱜ (Other)",
+    "emergency": "ᱟᱹᱰᱤ ᱞᱟᱹᱜᱤᱫ (Emergency)"
+  },
+  "status": {
+    "submitted": "ᱠᱩᱞ ᱮᱱᱟ",
+    "verified": "ᱧᱮᱞ ᱮᱱᱟ",
+    "assigned": "ᱴᱤᱢ ᱴᱷᱮᱱ ᱪᱟᱞ ᱮᱱᱟ",
+    "in_progress": "ᱠᱟᱹᱢᱤ ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟ",
+    "resolved": "ᱥᱚᱞᱦᱮ ᱮᱱᱟ",
+    "disputed": "ᱵᱤᱵᱟᱹᱫᱽ",
+    "pending_confirmation": "ᱟᱢᱟᱜ ᱯᱩᱥᱴᱟᱹᱣ ᱵᱟᱹᱠᱤ"
+  },
+  "problemDetail": {
+    "timeline": "ᱚᱵᱚᱥᱛᱟ",
+    "responsibleEntity": "ᱟᱢᱟᱜ ᱴᱚᱞᱟ ᱨᱮᱱ ᱴᱤᱢ ᱠᱟᱹᱢᱤ ᱠᱟᱱᱟ",
+    "supportCount": "{{count}} ᱦᱚᱲ ᱱᱚᱣᱟ ᱨᱤᱯᱳᱨᱴ ᱠᱚ ᱮᱢ ᱟᱠᱟᱫᱼᱟ",
+    "voiceGuide": "नोआ दो आमाग् रिपोर्ट रेनाग् ओबोस्था काना।"
+  },
+  "problems": {
+    "title": "ᱡᱚᱛᱚ ᱨᱤᱯᱳᱨᱴ",
+    "reportedBy": "ᱢᱤᱫ ᱱᱟᱜᱽᱨᱤᱠ ᱮ ᱨᱤᱯᱳᱨᱴ ᱟᱠᱟᱫᱼᱟ",
+    "supportCount": "{{count}} ᱦᱚᱲ ᱱᱚᱣᱟ ᱨᱤᱯᱳᱨᱴ ᱠᱚ ᱮᱢ ᱟᱠᱟᱫᱼᱟ",
+    "voiceGuide": "नोंडे जोतो रिपोर्ट ञेलोग-आ।"
+  },
+  "analytics": {
+    "title": "ᱞᱮᱠᱷᱟ-ᱡᱚᱠᱷᱟ",
+    "thisMonth": "ᱱᱚᱣᱟ ᱪᱟᱸᱫᱚ",
+    "totalReports": "ᱨᱤᱯᱳᱨᱴ ᱦᱮᱡ ᱮᱱᱟ",
+    "totalResolved": "ᱥᱚᱞᱦᱮ ᱮᱱᱟ",
+    "byCategory": "ᱠᱤᱥᱤᱢ ᱞᱮᱠᱟᱛᱮ",
+    "voiceGuide": "नोंडे आमाग् जिला रेनाग् लेखा-जोखा ञेलोग-आ।"
+  },
+  "notifications": {
+    "title": "ᱠᱷᱚᱵᱚᱨ (Notifications)",
+    "empty": "ᱱᱤᱛ ᱪᱮᱫ ᱠᱷᱚᱵᱚᱨ ᱦᱚᱸ ᱵᱟᱹᱱᱩᱜᱼᱟ",
+    "voiceGuide": "नोंडे आमाग् खोबोर ञेलोग-आ।"
+  },
+  "profile": {
+    "title": "ᱤᱧᱟᱜ ᱯᱨᱳᱯᱷᱟᱭᱤᱞ",
+    "nameLabel": "ᱧᱩᱛᱩᱢ",
+    "phoneLabel": "ᱢᱳᱵᱟᱭᱤᱞ",
+    "locationLabel": "ᱴᱷᱟᱶ",
+    "changeLanguage": "ᱯᱟᱹᱨᱥᱤ ᱵᱚᱫᱚᱞ ᱢᱮ",
+    "logout": "ᱞᱚᱜᱽ-ᱟᱣᱩᱴ",
+    "referral": "ᱟᱛᱳ ᱨᱮᱱ ᱦᱚᱲ ᱞᱟᱹᱭ ᱟᱠᱚ ᱢᱮ",
+    "communityCount": "ᱟᱢᱟᱜ ᱟᱛᱳ ᱠᱷᱚᱱ {{count}} ᱦᱚᱲ ᱠᱚ ᱥᱮᱞᱮᱫ ᱟᱠᱟᱱᱟ",
+    "voiceGuide": "नोआ दो आमाग् प्रोफाइल काना। नोंडे खोन भाषा आर जानकारी बोदोल मे।"
+  },
+  "languages": {
+    "hindi": "हिंदी",
+    "english": "English",
+    "santhali": "ᱥᱟᱱᱛᱟᱲᱤ (Santhali)",
+    "ho": "ᱦᱚ (Ho)",
+    "mundari": "ᱢᱩᱱᱰᱟᱨᱤ (Mundari)"
+  }
+}

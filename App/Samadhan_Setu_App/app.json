@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "समाधान सेतु",
+    "slug": "samadhan-setu",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "scheme": "samadhansetu",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "in.samadhansetu.citizen"
+    },
+    "android": {
+      "package": "in.samadhansetu.citizen",
+      "adaptiveIcon": {
+        "backgroundColor": "#FAF6EC",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "RECORD_AUDIO"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-secure-store",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "फ़ोटो से शिकायत में जोड़ने के लिए गैलरी की अनुमति चाहिए",
+          "cameraPermission": "शिकायत की फ़ोटो लेने के लिए कैमरे की अनुमति चाहिए"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "आपकी शिकायत की जगह पता लगाने के लिए लोकेशन की अनुमति चाहिए"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

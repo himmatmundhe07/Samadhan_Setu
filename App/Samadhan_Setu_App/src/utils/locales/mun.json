@@ -1,0 +1,152 @@
+{
+  "common": {
+    "appName": "समाधान सेतु (Samadhan Setu)",
+    "tagline": "अमाः तकलीफ, अलेयाः समाधान",
+    "loading": "लोड ओतोनोः तना...",
+    "retry": "दोड़ा चेस्टाय मे",
+    "cancel": "बगिया मे",
+    "save": "सांचाव मे",
+    "delete": "गेद गिडीय मे",
+    "edit": "बदोल मे",
+    "done": "हुबा एना",
+    "yes": "हेँ",
+    "no": "का",
+    "ok": "ठीक गेया",
+    "back": "रुवा़ड़",
+    "next": "लाहा",
+    "submit": "कुल मे",
+    "search": "सेँदराय मे",
+    "offline": "ऑफलाइन — मारे डाटा",
+    "syncing": "कुलोः तना...",
+    "saved": "सांचाव एना",
+    "sent": "कुल एना",
+    "error": "बाड़िज हुबा एना",
+    "errorReassuring": "अलोम चिन्ताया, अमाः डाटा रुखिया गेया।"
+  },
+  "home": {
+    "headline": "अमाः तकलीफ, अलेयाः समाधान",
+    "totalComplaints": "नित धड़िज रिपोर्ट",
+    "totalResolved": "सोलहे एना",
+    "startReport": "रिपोर्ट मे",
+    "login": "लॉगिन मे",
+    "voiceGuide": "जोहार! नेआ दो समाधान सेतु तना। अमाः तकलीफ रिपोर्ट लागिड लताार रेयाः बटन लीन मे।"
+  },
+  "register": {
+    "title": "खाता बेनाव मे",
+    "nameLabel": "अमाः नुतुम",
+    "namePlaceholder": "पुरा नुतुम ओल मे",
+    "phoneLabel": "मोबाइल नंबर",
+    "phonePlaceholder": "१० टांग नंबर",
+    "emailLabel": "ईमेल",
+    "emailPlaceholder": "ईमेल (का जा़रुड़ा)",
+    "locationLabel": "अमाः ठांव",
+    "districtLabel": "जिला चुनाव मे",
+    "gpsDetecting": "ठांव ण्यामोः तना...",
+    "gpsDetected": "ठांव ण्याम एना",
+    "gpsFailed": "ठांव का ण्याम लेना",
+    "otpTitle": "OTP ते पुस्टाव मे",
+    "otpSent": "OTP कुल एना",
+    "otpPlaceholder": "६ टांग OTP ओल मे",
+    "alreadyRegistered": "खाता मेनाःआ? लॉगिन मे",
+    "voiceGuide": "खाता बेनाव लागिड नुतुम आर मोबाइल नंबर ओल मे।"
+  },
+  "login": {
+    "title": "लॉगिन मे",
+    "phoneLabel": "मोबाइल नंबर",
+    "phonePlaceholder": "मोबाइल नंबर ओल मे",
+    "sendOtp": "OTP कुल मे",
+    "passwordLabel": "पासवर्ड",
+    "loginButton": "लॉगिन मे",
+    "noAccount": "नावां खाता बेनाव मे",
+    "voiceGuide": "लॉगिन लागिड मोबाइल नंबर ओल मे आर OTP कुल मे।"
+  },
+  "dashboard": {
+    "greeting": "जोहार, {{name}}",
+    "totalReports": "जोतो रिपोर्ट",
+    "inProgress": "चालाओः तना",
+    "resolved": "सोलहे एना",
+    "myComplaints": "इञाः रिपोर्ट",
+    "noComplaints": "नित धड़िज चेद रिपोर्ट ओदोः कानोःआ",
+    "newReport": "नावां रिपोर्ट",
+    "voiceGuide": "नेआ दो अमाः डैशबोर्ड तना। नावां रिपोर्ट लागिड लतार रे (+) बटन लीन मे।"
+  },
+  "submit": {
+    "title": "रिपोर्ट मे",
+    "takePhoto": "फोटो तुलाव मे",
+    "choosePhoto": "गेलारी खोने चुनाव मे",
+    "categoryTitle": "तकलीफ रेयाः किसिम चुनाव मे",
+    "voiceNote": "कड़ ते लय मे",
+    "voiceRecording": "रेकोर्डोः तना...",
+    "voiceRecorded": "रेकोर्ड एना",
+    "descriptionLabel": "आरहो ओल मे",
+    "descriptionPlaceholder": "नेँड़े ओल मे...",
+    "confirmTitle": "ठीक गेया?",
+    "confirmYes": "हेँ, कुल मे",
+    "confirmNo": "का, बदोल मे",
+    "submitted": "रिपोर्ट कुल एना!",
+    "voiceGuide": "रिपोर्ट लागिड फोटो तुलाव मे आर किसिम चुनाव मे।"
+  },
+  "categories": {
+    "water": "दाः (Water)",
+    "road": "होरा (Road)",
+    "health": "होड़मो (Health)",
+    "environment": "परिवेश (Environment)",
+    "school": "इतून आसड़ा (School)",
+    "electricity": "बिजली (Electricity)",
+    "toilet": "पायखाना (Toilet)",
+    "other": "एटाःआः (Other)",
+    "emergency": "आड़िज लागिड (Emergency)"
+  },
+  "status": {
+    "submitted": "कुल एना",
+    "verified": "ञेल एना",
+    "assigned": "टीम ठीन चाल एना",
+    "in_progress": "कामी चालाओः तना",
+    "resolved": "सोलहे एना",
+    "disputed": "बिबाद",
+    "pending_confirmation": "अमाः पुस्टाव बाकी"
+  },
+  "problemDetail": {
+    "timeline": "अवस्ता",
+    "responsibleEntity": "अमाः टोला रेन टीम कामी तना",
+    "supportCount": "{{count}} होड़ नेआ रिपोर्ट को एम अकादा",
+    "voiceGuide": "नेआ दो अमाः रिपोर्ट रेयाः अवस्ता तना।"
+  },
+  "problems": {
+    "title": "जोतो रिपोर्ट",
+    "reportedBy": "मिद नागरिक रिपोर्ट अकादा",
+    "supportCount": "{{count}} होड़ नेआ रिपोर्ट को एम अकादा",
+    "voiceGuide": "नेँड़े जोतो रिपोर्ट ञेलोःआ।"
+  },
+  "analytics": {
+    "title": "लेखा-जोखा",
+    "thisMonth": "नेआ चांदो",
+    "totalReports": "रिपोर्ट हेज एना",
+    "totalResolved": "सोलहे एना",
+    "byCategory": "किसिम लेकाते",
+    "voiceGuide": "नेँड़े अमाः जिला रेयाः लेखा-जोखा ञेलोःआ।"
+  },
+  "notifications": {
+    "title": "खबर (Notifications)",
+    "empty": "नित चेद खबर ओदोः कानोःआ",
+    "voiceGuide": "नेँड़े अमाः खबर ञेलोःआ।"
+  },
+  "profile": {
+    "title": "इञाः प्रोफाइल",
+    "nameLabel": "नुतुम",
+    "phoneLabel": "मोबाइल",
+    "locationLabel": "ठांव",
+    "changeLanguage": "पारसी बदोल मे",
+    "logout": "लॉग-आउट",
+    "referral": "हातू रेन होड़ लय आको मे",
+    "communityCount": "हातू खोने {{count}} होड़ को सेलेद अकाना",
+    "voiceGuide": "नेआ दो अमाः प्रोफाइल तना।"
+  },
+  "languages": {
+    "hindi": "हिंदी",
+    "english": "English",
+    "santhali": "ᱥᱟᱱᱛᱟᱲᱤ (Santhali)",
+    "ho": "ᱦᱚ (Ho)",
+    "mundari": "मुंडारी (Mundari)"
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "common": {
+    "appName": "समाधान सेतु",
+    "tagline": "अपने सबके समस्या, हमनी के समाधान",
+    "loading": "लोड हो रहल हे...",
+    "retry": "फेरू कोशिश करही",
+    "cancel": "रद्द करही",
+    "save": "सहेजी",
+    "delete": "हटाई",
+    "edit": "बदली",
+    "done": "हो गेलई",
+    "yes": "हाँ",
+    "no": "ना",
+    "ok": "ठीक हे",
+    "back": "पाछू",
+    "next": "आगू",
+    "submit": "भेजी",
+    "search": "खोजी",
+    "offline": "ऑफ़लाइन — पुरान डेटा देखात हे",
+    "syncing": "भेजे के कोशिश चालू हे...",
+    "saved": "सहेज लेल गेलई",
+    "sent": "भेज देल गेलई",
+    "error": "कोनो गड़बड़ी हो गेलई",
+    "errorReassuring": "चिंता मत करही, अपने के डेटा सुरक्षित हे।"
+  },
+  "home": {
+    "headline": "अपने सबके समस्या, हमनी के समाधान",
+    "totalComplaints": "अबतक के शिकायत",
+    "totalResolved": "समाधान भेलई",
+    "startReport": "शिकायत दर्ज करही",
+    "login": "लॉगिन करही",
+    "voiceGuide": "ई समाधान सेतु हे। अपने आपन समस्या इहाँ से दर्ज करा सकही।"
+  },
+  "register": {
+    "title": "खाता बनाई",
+    "nameLabel": "अपने के नाम",
+    "namePlaceholder": "आपन पूरा नाम लिखी",
+    "phoneLabel": "मोबाइल नंबर",
+    "phonePlaceholder": "१० अंक के मोबाइल नंबर",
+    "emailLabel": "ईमेल (ज़रूरी नइखे)",
+    "districtLabel": "ज़िला चुनी",
+    "passwordLabel": "पासवर्ड",
+    "passwordPlaceholder": "कम से कम ६ अच्छर",
+    "alreadyRegistered": "पहिले से खाता हे? लॉगिन करही",
+    "voiceGuide": "नया खाता बनावे खातिर आपन नाम आ मोबाइल नंबर दर्ज करथि।"
+  },
+  "login": {
+    "title": "लॉगिन करही",
+    "emailOrPhone": "ईमेल चाहे मोबाइल",
+    "password": "पासवर्ड",
+    "loginButton": "लॉगिन",
+    "noAccount": "खाता नइखे? रजिस्टर करही",
+    "guestContinue": "अतिथि बनके आगू बढ़ी",
+    "voiceGuide": "आपन खाता में लॉगिन करे खातिर मोबाइल नंबर दर्ज करथि आ OTP मँगवावी।"
+  },
+  "submit": {
+    "title": "नया शिकायत दर्ज करही",
+    "takePhoto": "फोटो खींची",
+    "choosePhoto": "गैलरी से चुनी",
+    "chooseCategory": "श्रेणी चुनी",
+    "descriptionLabel": "समस्या के बिबरन",
+    "descriptionPlaceholder": "समस्या के बारे में बिस्तार से लिखी...",
+    "recordVoice": "आवाज में रिकॉर्ड करही",
+    "confirmTitle": "पुष्टि करही",
+    "submitButton": "शिकायत भेजी",
+    "successTitle": "शिकायत दर्ज हो गेलई",
+    "voiceGuide": "शिकायत दर्ज करे खातिर पहिले फोटो खींची, श्रेणी चुनी आ भेजी।"
+  },
+  "dashboard": {
+    "title": "डैशबोर्ड",
+    "stats": "आँकड़ा",
+    "myComplaints": "हमर शिकायत",
+    "voiceGuide": "ई अपने सबके डैशबोर्ड हे। इहाँ सब शिकायत देखात हे। नया शिकायत खातिर नीचे प्लस बटन दबावी।"
+  },
+  "problemDetail": {
+    "timeline": "स्थिति",
+    "responsibleEntity": "अपने के इलाका के टीम काम कर रहल हे",
+    "supportCount": "{{count}} लोग ई शिकायत के समर्थन करलथिन",
+    "voiceGuide": "ई अपने के शिकायत के स्थिति हे। ऊपर देखी कि काम कहाँ तक पहुँचल हे।"
+  },
+  "problems": {
+    "title": "सब शिकायत",
+    "filterByCategory": "श्रेणी से छाँटी",
+    "filterByDistrict": "ज़िला से छाँटी",
+    "reportedBy": "कोनो नागरिक दर्ज करलथिन",
+    "supportCount": "{{count}} लोग समर्थन करलथिन",
+    "voiceGuide": "इहाँ सब शिकायत देखात हे। अपने श्रेणी चाहे जिला से छाँट सकही।"
+  },
+  "analytics": {
+    "title": "आँकड़ा",
+    "thisMonth": "एह महीना में",
+    "totalReports": "शिकायत आयल",
+    "totalResolved": "समाधान भेलई",
+    "byCategory": "श्रेणी के हिसाब से",
+    "selectDistrict": "ज़िला चुनी",
+    "noData": "अखन बेसी डेटा नइखे",
+    "voiceGuide": "इहाँ अपने के जिला के आँकड़ा देखात हे। एह महीना कतना शिकायत आयल आ कतना हल भेल हे।"
+  },
+  "notifications": {
+    "title": "सूचना",
+    "empty": "अखन कोनो नया सूचना नइखे",
+    "markAllRead": "सब पढ़ल मान ली",
+    "voiceGuide": "इहाँ अपने के सब सूचना देखात हे। सुने खातिर स्पीकर बटन दबावी।"
+  },
+  "profile": {
+    "title": "हमर प्रोफ़ाइल",
+    "nameLabel": "नाम",
+    "phoneLabel": "मोबाइल",
+    "locationLabel": "जगह",
+    "changeLanguage": "भाषा बदली",
+    "logout": "लॉगआउट",
+    "referral": "आपन गाँव में बताई",
+    "voiceGuide": "ई अपने के प्रोफ़ाइल हे। इहाँ से भाषा आ जानकारी बदल सकही।"
+  },
+  "languages": {
+    "hindi": "हिंदी",
+    "english": "English",
+    "santhali": "ᱥᱟᱱᱛᱟᱲᱤ (Santhali)",
+    "khortha": "खोरठा (Khortha)",
+    "nagpuri": "नागपुरी (Nagpuri)",
+    "bhojpuri": "भोजपुरी (Bhojpuri)",
+    "angika": "अंगिका (Angika)",
+    "magahi": "मगही (Magahi)",
+    "maithili": "मैथिली (Maithili)",
+    "odia": "ଓଡ଼ିଆ (Odia)",
+    "bengali": "বাংলা (Bengali)",
+    "kurukh": "कुड़ुख़ (Kurukh)"
+  }
+}
